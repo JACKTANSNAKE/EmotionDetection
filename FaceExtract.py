@@ -1,17 +1,22 @@
 import cv2
 import glob
+import os
 
 faceDet = cv2.CascadeClassifier("../haarcascade_frontalface_default.xml")
 faceDet_two = cv2.CascadeClassifier("../haarcascade_frontalface_alt2.xml")
 faceDet_three = cv2.CascadeClassifier("../haarcascade_frontalface_alt.xml")
 faceDet_four = cv2.CascadeClassifier("../haarcascade_frontalface_alt_tree.xml")
 emotions = ["happy", "sadness"]  # Define emotions
+facesDB = "C:/Users/ztan1/PycharmProjects/EmotionDetection/source_images/FacesDB/Happy"
+facesDBHappy = []
+
+for file in os.listdir(facesDB):
+    facesDBHappy.append(os.path.join(facesDB, file))
 
 
-def detect_faces(emotion):
-    files = glob.glob("sorted_set\\%s\\*" % emotion)  # Get list of all images with emotion
-    filenumber = 0
+def detect_faces(files):
     for f in files:
+        filenumber = 0
         frame = cv2.imread(f)  # Open image
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Convert image to grayscale
         # Detect face using 4 different classifiers
