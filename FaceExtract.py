@@ -23,6 +23,7 @@ jaffedbaseHappy = []
 jaffedbaseSad = []
 Happy = []
 Sad = []
+fishface = cv2.face.createFisherFaceRecognizer()
 
 for file in os.listdir(facesDBHappyPath):
     facesDBHappy.append(os.path.join(facesDBHappyPath, file))
