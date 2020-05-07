@@ -4,7 +4,7 @@ import os
 from os import path
 
 detPath = path.abspath("./haarcascades/haarcascade_frontalface_default.xml")
-print(detPath)
+# print(detPath)
 faceDet = cv2.CascadeClassifier(detPath)
 detPath2 = path.abspath("./haarcascades/haarcascade_frontalface_alt2.xml")
 faceDet_two = cv2.CascadeClassifier(detPath2)
@@ -22,8 +22,8 @@ print(facesDBHappy)
 
 
 def detect_faces(files):
+    filenumber = 0
     for f in files:
-        filenumber = 0
         frame = cv2.imread(f)  # Open image
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Convert image to grayscale
         # Detect face using 4 different classifiers
@@ -52,7 +52,7 @@ def detect_faces(files):
             gray = gray[y:y + h, x:x + w]  # Cut the frame to size
             try:
                 out = cv2.resize(gray, (350, 350))  # Resize face so all images have same size
-                cv2.imwrite("dataset\\%s.jpg" % filenumber, out)  # Write image
+                cv2.imwrite("./source_images/dataset\\%s.jpg" % filenumber, out)  # Write image
             except:
                 pass  # If error, pass file
         filenumber += 1  # Increment image number
