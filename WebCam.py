@@ -12,7 +12,7 @@ detPath4 = path.abspath("./haarcascades/haarcascade_frontalface_alt_tree.xml")
 faceDet_four = cv2.CascadeClassifier(detPath4)
 font = cv2.FONT_HERSHEY_SIMPLEX
 UpperLeftCornerOfText = (10, 30)
-SecondUpperLeftCornerOfText = (70, 30)
+SecondUpperLeftCornerOfText = (100, 30)
 fontScale = 1
 fontColor = (0, 0, 255)
 lineType = 2
@@ -74,9 +74,9 @@ def showWebCamAndRun(model):
                                     lineType)
             continue
         prediction = model.predict(f)
-        secondParam = 0
+        confidence = 0
         if cv2.__version__ != '3.1.0':
-            secondParam = str(prediction[1])
+            confidence = str(prediction[1])
             prediction = prediction[0]
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.putText(frame, emotion[prediction],
@@ -85,7 +85,7 @@ def showWebCamAndRun(model):
                     fontScale,
                     fontColor,
                     lineType)
-        cv2.putText(frame, secondParam,
+        cv2.putText(frame, confidence,
                     SecondUpperLeftCornerOfText,
                     font,
                     fontScale,

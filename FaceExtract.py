@@ -21,8 +21,13 @@ jaffedbaseHappyPath = "./source_images/Jaffedbase/Happy"
 jaffedbaseSadPath = "./source_images/Jaffedbase/Sad"
 jaffedbaseHappy = []
 jaffedbaseSad = []
+KDEFHappyPath = "./source_images/KDEF/Happy"
+KDEFSadPath = "./source_images/KDEF/Sad"
+KDEFHappy = []
+KDEFSad = []
 Happy = []
 Sad = []
+
 
 for file in os.listdir(facesDBHappyPath):
     facesDBHappy.append(os.path.join(facesDBHappyPath, file))
@@ -36,12 +41,21 @@ print(jaffedbaseHappy)
 for file in os.listdir(jaffedbaseSadPath):
     jaffedbaseSad.append(os.path.join(jaffedbaseSadPath, file))
 print(jaffedbaseSad)
+for file in os.listdir(KDEFHappyPath):
+    KDEFHappy.append(os.path.join(KDEFHappyPath, file))
+print(KDEFHappy)
+for file in os.listdir(KDEFSadPath):
+    KDEFSad.append(os.path.join(KDEFSadPath, file))
+print(KDEFSad)
 
 
 Happy.append(facesDBHappy)
 Happy.append(jaffedbaseHappy)
+Happy.append(KDEFHappy)
 Sad.append(facesDBSad)
 Sad.append(jaffedbaseSad)
+Sad.append(KDEFSad)
+
 
 def detect_happy_faces(list_of_files):
     filenumber = 0
