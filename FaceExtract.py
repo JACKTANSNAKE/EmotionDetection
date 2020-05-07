@@ -36,6 +36,8 @@ print(jaffedbaseHappy)
 for file in os.listdir(jaffedbaseSadPath):
     jaffedbaseSad.append(os.path.join(jaffedbaseSadPath, file))
 print(jaffedbaseSad)
+
+
 Happy.append(facesDBHappy)
 Happy.append(jaffedbaseHappy)
 Sad.append(facesDBSad)
