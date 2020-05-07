@@ -2,16 +2,17 @@ import cv2
 import glob
 import os
 
-faceDet = cv2.CascadeClassifier("../haarcascade_frontalface_default.xml")
-faceDet_two = cv2.CascadeClassifier("../haarcascade_frontalface_alt2.xml")
-faceDet_three = cv2.CascadeClassifier("../haarcascade_frontalface_alt.xml")
-faceDet_four = cv2.CascadeClassifier("../haarcascade_frontalface_alt_tree.xml")
+faceDet = cv2.CascadeClassifier("../haarcascades/haarcascade_frontalface_default.xml")
+faceDet_two = cv2.CascadeClassifier("../haarcascades/haarcascade_frontalface_alt2.xml")
+faceDet_three = cv2.CascadeClassifier("../haarcascades/haarcascade_frontalface_alt.xml")
+faceDet_four = cv2.CascadeClassifier("../haarcascades/haarcascade_frontalface_alt_tree.xml")
 emotions = ["happy", "sadness"]  # Define emotions
-facesDB = "C:/Users/ztan1/PycharmProjects/EmotionDetection/source_images/FacesDB/Happy"
+facesDBHappyPath = "C:/Users/ztan1/PycharmProjects/EmotionDetection/source_images/FacesDB/Happy"
 facesDBHappy = []
 
-for file in os.listdir(facesDB):
-    facesDBHappy.append(os.path.join(facesDB, file))
+for file in os.listdir(facesDBHappyPath):
+    facesDBHappy.append(os.path.join(facesDBHappyPath, file))
+print(facesDBHappy)
 
 
 def detect_faces(files):
@@ -45,11 +46,10 @@ def detect_faces(files):
             gray = gray[y:y + h, x:x + w]  # Cut the frame to size
             try:
                 out = cv2.resize(gray, (350, 350))  # Resize face so all images have same size
-                cv2.imwrite("dataset\\%s\\%s.jpg" % (emotion, filenumber), out)  # Write image
+                cv2.imwrite("dataset\\%s.jpg" % filenumber, out)  # Write image
             except:
                 pass  # If error, pass file
         filenumber += 1  # Increment image number
 
 
-for emotion in emotions:
-    detect_faces(emotion)  # Call functiona
+detect_faces(facesDBHappy)
