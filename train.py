@@ -64,8 +64,9 @@ def run_recognizer():
 
 #Now run it
 metascore = []
-for i in range(0,10):
+for i in range(0, 10):
     correct = run_recognizer()
     print("got", correct, "percent correct!")
     metascore.append(correct)
-print( "\n\nend score:", np.mean(metascore), "percent correct!" )
+fishface.save('model/emotion_detection_model.xml')
+print("\n\nend score:", np.mean(metascore), "percent correct!")
