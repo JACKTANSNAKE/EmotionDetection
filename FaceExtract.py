@@ -1,13 +1,19 @@
 import cv2
 import glob
 import os
+from os import path
 
-faceDet = cv2.CascadeClassifier("../haarcascades/haarcascade_frontalface_default.xml")
-faceDet_two = cv2.CascadeClassifier("../haarcascades/haarcascade_frontalface_alt2.xml")
-faceDet_three = cv2.CascadeClassifier("../haarcascades/haarcascade_frontalface_alt.xml")
-faceDet_four = cv2.CascadeClassifier("../haarcascades/haarcascade_frontalface_alt_tree.xml")
+detPath = path.abspath("./haarcascades/haarcascade_frontalface_default.xml")
+print(detPath)
+faceDet = cv2.CascadeClassifier(detPath)
+detPath2 = path.abspath("./haarcascades/haarcascade_frontalface_alt2.xml")
+faceDet_two = cv2.CascadeClassifier(detPath2)
+detPath3 = path.abspath("./haarcascades/haarcascade_frontalface_alt0.xml")
+faceDet_three = cv2.CascadeClassifier(detPath3)
+detPath4 = path.abspath("./haarcascades/haarcascade_frontalface_alt_tree.xml")
+faceDet_four = cv2.CascadeClassifier(detPath4)
 emotions = ["happy", "sadness"]  # Define emotions
-facesDBHappyPath = "C:/Users/ztan1/PycharmProjects/EmotionDetection/source_images/FacesDB/Happy"
+facesDBHappyPath = "./source_images/FacesDB/Happy"
 facesDBHappy = []
 
 for file in os.listdir(facesDBHappyPath):
