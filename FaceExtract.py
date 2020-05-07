@@ -17,6 +17,12 @@ facesDBHappyPath = "./source_images/FacesDB/Happy"
 facesDBSadPath = "./source_images/FacesDB/Sad"
 facesDBHappy = []
 facesDBSad = []
+jaffedbaseHappyPath = "./source_images/Jaffedbase/Happy"
+jaffedbaseSadPath = "./source_images/Jaffedbase/Sad"
+jaffedbaseHappy = []
+jaffedbaseSad = []
+Happy = []
+Sad = []
 
 for file in os.listdir(facesDBHappyPath):
     facesDBHappy.append(os.path.join(facesDBHappyPath, file))
@@ -24,80 +30,91 @@ print(facesDBHappy)
 for file in os.listdir(facesDBSadPath):
     facesDBSad.append(os.path.join(facesDBSadPath, file))
 print(facesDBSad)
+for file in os.listdir(jaffedbaseHappyPath):
+    jaffedbaseHappy.append(os.path.join(jaffedbaseHappyPath, file))
+print(jaffedbaseHappy)
+for file in os.listdir(jaffedbaseSadPath):
+    jaffedbaseSad.append(os.path.join(jaffedbaseSadPath, file))
+print(jaffedbaseSad)
+Happy.append(facesDBHappy)
+Happy.append(jaffedbaseHappy)
+Sad.append(facesDBSad)
+Sad.append(jaffedbaseSad)
 
-
-def detect_happy_faces(files):
+def detect_happy_faces(list_of_files):
     filenumber = 0
-    for f in files:
-        frame = cv2.imread(f)  # Open image
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Convert image to grayscale
-        # Detect face using 4 different classifiers
-        face = faceDet.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
-                                        flags=cv2.CASCADE_SCALE_IMAGE)
-        face_two = faceDet_two.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
-                                                flags=cv2.CASCADE_SCALE_IMAGE)
-        face_three = faceDet_three.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
+    for files in list_of_files:
+        for f in files:
+            frame = cv2.imread(f)  # Open image
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Convert image to grayscale
+            # Detect face using 4 different classifiers
+            face = faceDet.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
+                                            flags=cv2.CASCADE_SCALE_IMAGE)
+            face_two = faceDet_two.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
                                                     flags=cv2.CASCADE_SCALE_IMAGE)
-        face_four = faceDet_four.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
-                                                  flags=cv2.CASCADE_SCALE_IMAGE)
-        # Go over detected faces, stop at first detected face, return empty if no face.
-        if len(face) == 1:
-            facefeatures = face
-        elif len(face_two) == 1:
-            facefeatures = face_two
-        elif len(face_three) == 1:
-            facefeatures = face_three
-        elif len(face_four) == 1:
-            facefeatures = face_four
-        else:
-            facefeatures = ""
-        # Cut and save face
-        for (x, y, w, h) in facefeatures:  # get coordinates and size of rectangle containing face
-            print("face found in file: %s" % f)
-            gray = gray[y:y + h, x:x + w]  # Cut the frame to size
-            try:
-                out = cv2.resize(gray, (350, 350))  # Resize face so all images have same size
-                cv2.imwrite("./source_images/dataset/Happy\\%s.jpg" % filenumber, out)  # Write image
-            except:
-                pass  # If error, pass file
-        filenumber += 1  # Increment image number
+            face_three = faceDet_three.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
+                                                        flags=cv2.CASCADE_SCALE_IMAGE)
+            face_four = faceDet_four.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
+                                                      flags=cv2.CASCADE_SCALE_IMAGE)
+            # Go over detected faces, stop at first detected face, return empty if no face.
+            if len(face) == 1:
+                facefeatures = face
+            elif len(face_two) == 1:
+                facefeatures = face_two
+            elif len(face_three) == 1:
+                facefeatures = face_three
+            elif len(face_four) == 1:
+                facefeatures = face_four
+            else:
+                facefeatures = ""
+            # Cut and save face
+            for (x, y, w, h) in facefeatures:  # get coordinates and size of rectangle containing face
+                print("face found in file: %s" % f)
+                gray = gray[y:y + h, x:x + w]  # Cut the frame to size
+                try:
+                    out = cv2.resize(gray, (350, 350))  # Resize face so all images have same size
+                    cv2.imwrite("./source_images/dataset/Happy\\%s.jpg" % filenumber, out)  # Write image
+                except:
+                    pass  # If error, pass file
+            filenumber += 1  # Increment image number
 
-def detect_sad_faces(files):
+def detect_sad_faces(list_of_files):
     filenumber = 0
-    for f in files:
-        frame = cv2.imread(f)  # Open image
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Convert image to grayscale
-        # Detect face using 4 different classifiers
-        face = faceDet.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
-                                        flags=cv2.CASCADE_SCALE_IMAGE)
-        face_two = faceDet_two.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
-                                                flags=cv2.CASCADE_SCALE_IMAGE)
-        face_three = faceDet_three.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
+    for files in list_of_files:
+        for f in files:
+            frame = cv2.imread(f)  # Open image
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Convert image to grayscale
+            # Detect face using 4 different classifiers
+            face = faceDet.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
+                                            flags=cv2.CASCADE_SCALE_IMAGE)
+            face_two = faceDet_two.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
                                                     flags=cv2.CASCADE_SCALE_IMAGE)
-        face_four = faceDet_four.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
-                                                  flags=cv2.CASCADE_SCALE_IMAGE)
-        # Go over detected faces, stop at first detected face, return empty if no face.
-        if len(face) == 1:
-            facefeatures = face
-        elif len(face_two) == 1:
-            facefeatures = face_two
-        elif len(face_three) == 1:
-            facefeatures = face_three
-        elif len(face_four) == 1:
-            facefeatures = face_four
-        else:
-            facefeatures = ""
-        # Cut and save face
-        for (x, y, w, h) in facefeatures:  # get coordinates and size of rectangle containing face
-            print("face found in file: %s" % f)
-            gray = gray[y:y + h, x:x + w]  # Cut the frame to size
-            try:
-                out = cv2.resize(gray, (350, 350))  # Resize face so all images have same size
-                cv2.imwrite("./source_images/dataset/Sad\\%s.jpg" % filenumber, out)  # Write image
-            except:
-                pass  # If error, pass file
-        filenumber += 1  # Increment image number
+            face_three = faceDet_three.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
+                                                        flags=cv2.CASCADE_SCALE_IMAGE)
+            face_four = faceDet_four.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=10, minSize=(5, 5),
+                                                      flags=cv2.CASCADE_SCALE_IMAGE)
+            # Go over detected faces, stop at first detected face, return empty if no face.
+            if len(face) == 1:
+                facefeatures = face
+            elif len(face_two) == 1:
+                facefeatures = face_two
+            elif len(face_three) == 1:
+                facefeatures = face_three
+            elif len(face_four) == 1:
+                facefeatures = face_four
+            else:
+                facefeatures = ""
+            # Cut and save face
+            for (x, y, w, h) in facefeatures:  # get coordinates and size of rectangle containing face
+                print("face found in file: %s" % f)
+                gray = gray[y:y + h, x:x + w]  # Cut the frame to size
+                try:
+                    out = cv2.resize(gray, (350, 350))  # Resize face so all images have same size
+                    cv2.imwrite("./source_images/dataset/Sad\\%s.jpg" % filenumber, out)  # Write image
+                except:
+                    pass  # If error, pass file
+            filenumber += 1  # Increment image number
 
 
-detect_happy_faces(facesDBHappy)
-detect_sad_faces(facesDBSad)
+detect_happy_faces(Happy)
+detect_sad_faces(Sad)
