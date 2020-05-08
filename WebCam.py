@@ -45,7 +45,7 @@ def find_faces(image):
     for (x, y, w, h) in facefeatures:  # get coordinates and size of rectangle containing face
         image = image[y:y + h, x:x + w]  # Cut the frame to size
         out = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        out = cv2.resize(out, (350, 350))  # Resize face so all images have same size
+        out = cv2.resize(out, (300, 300))  # Resize face so all images have same size
     return out, (x, y, w, h)
 
 
@@ -103,9 +103,11 @@ def showWebCamAndRun(model):
 
 if __name__ == '__main__':
     # load model
-    p = path.abspath(f"./model/emotion_detection_model.xml")
+    p1 = path.abspath(f"./model/emotion_detection_model.xml")
+    p2 = path.abspath(f"./model/emotion_detection_model_large.xml")
     fisher_face = cv2.face.FisherFaceRecognizer_create()
-    fisher_face.read(p)
+    #fisher_face.read(p1)
+    fisher_face.read(p2)
 
     # use learnt model
     window_name = 'WEBCAM (press q to exit)'

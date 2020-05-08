@@ -25,6 +25,10 @@ KDEFHappyPath = "./source_images/KDEF/Happy"
 KDEFSadPath = "./source_images/KDEF/Sad"
 KDEFHappy = []
 KDEFSad = []
+# KaggleHappyPath = "./source_images/Kaggle/Happy"
+# KaggleSadPath = "./source_images/Kaggle/Sad"
+# KaggleHappy = []
+# KaggleSad = []
 Happy = []
 Sad = []
 
@@ -47,14 +51,22 @@ print(KDEFHappy)
 for file in os.listdir(KDEFSadPath):
     KDEFSad.append(os.path.join(KDEFSadPath, file))
 print(KDEFSad)
+# for file in os.listdir(KaggleHappyPath):
+#     KaggleHappy.append(os.path.join(KaggleHappyPath, file))
+# print(KaggleHappy)
+# for file in os.listdir(KaggleSadPath):
+#     KaggleSad.append(os.path.join(KaggleSadPath, file))
+# print(KaggleSad)
 
 
 Happy.append(facesDBHappy)
 Happy.append(jaffedbaseHappy)
 Happy.append(KDEFHappy)
+# Happy.append(KaggleHappy)
 Sad.append(facesDBSad)
 Sad.append(jaffedbaseSad)
 Sad.append(KDEFSad)
+# Sad.append(KaggleSad)
 
 
 def detect_happy_faces(list_of_files):
@@ -88,7 +100,7 @@ def detect_happy_faces(list_of_files):
                 print("face found in file: %s" % f)
                 gray = gray[y:y + h, x:x + w]  # Cut the frame to size
                 try:
-                    out = cv2.resize(gray, (350, 350))  # Resize face so all images have same size
+                    out = cv2.resize(gray, (300, 300))  # Resize face so all images have same size
                     cv2.imwrite("./source_images/dataset/Happy\\%s.jpg" % filenumber, out)  # Write image
                 except:
                     pass  # If error, pass file
@@ -125,7 +137,7 @@ def detect_sad_faces(list_of_files):
                 print("face found in file: %s" % f)
                 gray = gray[y:y + h, x:x + w]  # Cut the frame to size
                 try:
-                    out = cv2.resize(gray, (350, 350))  # Resize face so all images have same size
+                    out = cv2.resize(gray, (300, 300))  # Resize face so all images have same size
                     cv2.imwrite("./source_images/dataset/Sad\\%s.jpg" % filenumber, out)  # Write image
                 except:
                     pass  # If error, pass file
