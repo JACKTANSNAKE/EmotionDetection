@@ -106,8 +106,8 @@ if __name__ == '__main__':
     p1 = path.abspath(f"./model/emotion_detection_model.xml")
     p2 = path.abspath(f"./model/emotion_detection_model_large.xml")
     fisher_face = cv2.face.FisherFaceRecognizer_create()
-    #fisher_face.read(p1)
-    fisher_face.read(p2)
+    fisher_face.read(p1)
+    #fisher_face.read(p2)
 
     # use learnt model
     window_name = 'WEBCAM (press q to exit)'
