@@ -47,6 +47,7 @@ def make_sets():
 
 def run_recognizer():
     training_data, training_labels, prediction_data, prediction_labels = make_sets()
+
     print("training fisher face classifier")
     print("size of training set is:", len(training_labels), "images")
     fishface.train(training_data, np.asarray(training_labels))
@@ -64,14 +65,16 @@ def run_recognizer():
             incorrect += 1
             cnt += 1
         numberDone += 1
+    print(training_data)
     return (100 * correct) / (correct + incorrect)
 
 
 # Now run it
 metascore = []
-for i in range(10):
-    correct = run_recognizer()
-    print("got", correct, "percent correct!")
-    metascore.append(correct)
-fishface.save('model/emotion_detection_model.xml')
-print("\n\nend score:", np.mean(metascore), "percent correct!")
+run_recognizer()
+# for i in range(10):
+#     correct = run_recognizer()
+#     print("got", correct, "percent correct!")
+#     metascore.append(correct)
+# fishface.save('model/emotion_detection_model.xml')
+# print("\n\nend score:", np.mean(metascore), "percent correct!")

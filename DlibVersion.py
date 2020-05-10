@@ -72,8 +72,8 @@ def make_sets():
         for item in training:
             image = cv2.imread(item)  # open image
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # convert to grayscale
-            clahe_image = clahe.apply(gray)
-            get_landmarks(clahe_image)
+            #clahe_image = clahe.apply(gray)
+            get_landmarks(gray)
             if data['landmarks_vectorised'] == "error":
                 print("no face detected on this one")
             else:
@@ -82,8 +82,8 @@ def make_sets():
         for item in prediction:
             image = cv2.imread(item)
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            clahe_image = clahe.apply(gray)
-            get_landmarks(clahe_image)
+            #clahe_image = clahe.apply(gray)
+            get_landmarks(gray)
             if data['landmarks_vectorised'] == "error":
                 print("no face detected on this one")
             else:
@@ -98,13 +98,14 @@ for i in range(0, 10):
     print("Making sets %s" % i)  # Make sets by random sampling 80/20%
     training_data, training_labels, prediction_data, prediction_labels = make_sets()
     npar_train = np.array(training_data)  # Turn the training set into a numpy array for the classifier
+    print(training_data)
     npar_trainlabs = np.array(training_labels)
     print("training SVM linear %s" % i)  # train SVM
     svm = cv2.ml.SVM_create()
     svm.setType(cv2.ml.SVM_C_SVC)
     svm.setKernel(cv2.ml.SVM_LINEAR)
     svm.setTermCriteria((cv2.TERM_CRITERIA_MAX_ITER, 100, 1e-6))
-    svm.train(npar_train, cv2.ml.ROW_SAMPLE, npar_trainlabs)
+    svm.train(training_data, cv2.ml.ROW_SAMPLE, training_labels)
     svm.save('model/dlib_emotion_detection_model.xml')
     print("getting accuracies %s" % i)  # Use score() function to get accuracy
     npar_pred = np.array(prediction_data)
