@@ -25,10 +25,10 @@ KDEFHappyPath = "./source_images/KDEF/Happy"
 KDEFSadPath = "./source_images/KDEF/Sad"
 KDEFHappy = []
 KDEFSad = []
-# KaggleHappyPath = "./source_images/Kaggle/Happy"
-# KaggleSadPath = "./source_images/Kaggle/Sad"
-# KaggleHappy = []
-# KaggleSad = []
+KaggleHappyPath = "./source_images/Kaggle/Happy"
+KaggleSadPath = "./source_images/Kaggle/Sad"
+KaggleHappy = []
+KaggleSad = []
 Happy = []
 Sad = []
 
@@ -51,22 +51,22 @@ print(KDEFHappy)
 for file in os.listdir(KDEFSadPath):
     KDEFSad.append(os.path.join(KDEFSadPath, file))
 print(KDEFSad)
-# for file in os.listdir(KaggleHappyPath):
-#     KaggleHappy.append(os.path.join(KaggleHappyPath, file))
-# print(KaggleHappy)
-# for file in os.listdir(KaggleSadPath):
-#     KaggleSad.append(os.path.join(KaggleSadPath, file))
-# print(KaggleSad)
+for file in os.listdir(KaggleHappyPath):
+    KaggleHappy.append(os.path.join(KaggleHappyPath, file))
+print(KaggleHappy)
+for file in os.listdir(KaggleSadPath):
+    KaggleSad.append(os.path.join(KaggleSadPath, file))
+print(KaggleSad)
 
 
 Happy.append(facesDBHappy)
 Happy.append(jaffedbaseHappy)
 Happy.append(KDEFHappy)
-# Happy.append(KaggleHappy)
+Happy.append(KaggleHappy)
 Sad.append(facesDBSad)
 Sad.append(jaffedbaseSad)
 Sad.append(KDEFSad)
-# Sad.append(KaggleSad)
+Sad.append(KaggleSad)
 
 
 def detect_happy_faces(list_of_files):
